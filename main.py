@@ -66,6 +66,14 @@ def insert_into_db(note):
     cur.execute(queryString,(note,))
     connection.commit()
 
+def select_from_db():
+    connection=sqlite3.connect("./NotesDatabase.db")
+    queryString="""
+        SELECT name FROM Sheets
+    """
+    cur=connection.cursor()
+    array = cur.execute(queryString).fetchall()
+    print(array)
 
 if __name__=="__main__":
     createDB()
