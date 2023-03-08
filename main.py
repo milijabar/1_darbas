@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import sqlite3
-connection=sqlite3.connect("C:\\Users\\1538908\\Desktop\\NotesDatabase.db")
+connection=sqlite3.connect("./NotesDatabase.db")
 
 
 app = Flask(__name__,static_url_path='')
@@ -30,6 +30,7 @@ def notes():
         args = request.form.get("note2")
         if (args):
             array.append(args)
+            insert_into_db(args)
             print(array)
         return render_template('./notes.html',note=array)
     else:
@@ -55,16 +56,18 @@ def createDB():
     cursor.execute(createTableString)
     cursor.execute(createNotesTableString)
 
-def insert_into_db():
+def insert_into_db(note):
     global connection
+    connection=sqlite3.connect("./NotesDatabase.db")
     queryString="""
         INSERT INTO Sheets (Name) VALUES (?) 
     """
     cur=connection.cursor()
-    cur.execute(queryString,('test',))
+    cur.execute(queryString,(note,))
+    connection.commit()
 
 
 if __name__=="__main__":
+    createDB()
     app.run(debug="true")
-
 
