@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Užrašinė</title>
+</head>
+<style>
+
+.diva{
+    background-color: rgba(205, 182, 241, 0.879);
+    padding-left: 50%;
+    font-size: larger;
+    border: 3px solid rgb(0, 0, 255);
+    border-style: dashed;
+    border-radius: 40px
+}
+
+.notes{
+    background-color: rgba(43, 0, 255);
+    border: 3px solid rgb(0, 0, 0);
+    margin: 2rem;
+}
+
+.notes h2{
+    background-color: rgb(205, 182, 241, 0.879);
+    border: 3px solid rgb(240, 233, 233);
+    margin-top: 2px;
+    margin-inline: 1px;
+    padding: 6px;
+}
+
+</style>
+<body>
+    
+
+    <div class="diva">
+        <h1 style="color:rgb(43, 0, 255);font-family:cursive;">Užrašinė</h1>
+    </div>
+
+
+    <form action="/notes" method="post">
+        <br>
+        <br>
+        <input id="note2" name="note2" value="" style="background-color:rgb(197, 228, 239);">
+        <br>
+        <br>
+        <input type="submit" value="Submit" style="color:rgb(103, 12, 249);background-color:rgba(205, 182, 241, 0.879);" >
+    </form>
+
+<div class="notes">
+   {%for i in note%}
+    <h2>{{i}}</h2>
+    {%endfor%} 
+</div>
+
+    
+    
+    <p>
+        {{note}}
+    </p>
+
+
+</body>
+</html>
