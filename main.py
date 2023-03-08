@@ -1,8 +1,13 @@
 from flask import Flask, render_template, request
+import sqlite3
+connection=sqlite3.connect("C:\\Users\\1538908\\Desktop\\NotesDatabase.db")
+
 
 app = Flask(__name__,static_url_path='')
 variable=0
 array = []
+res=[]
+
 
 @app.route("/")
 def mano_funkcija():
@@ -29,6 +34,34 @@ def notes():
         return render_template('./notes.html',note=array)
     else:
         return render_template('./notes.html',note=array)
+
+
+def createDB():
+
+    global connection
+    cursor=connection.cursor()
+    createTableString = """CREATE TABLE IF NOT EXISTS Sheets (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Name TEXT NOT NULL
+    )"""
+
+    createNotesTableString = """CREATE TABLE IF NOT EXISTS Notes (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        SheetId INTEGER NOT NULL,
+        Header TEXT
+        Text TEXT,
+        FOREIGN KEY (SheetId) REFERENCES Sheets(Id)
+    )"""
+    cursor.execute(createTableString)
+    cursor.execute(createNotesTableString)
+
+def insert_into_db():
+    global connection
+    queryString="""
+        INSERT INTO Sheets (Name) VALUES (?) 
+    """
+    cur=connection.cursor()
+    cur.execute(queryString,('test',))
 
 
 if __name__=="__main__":
