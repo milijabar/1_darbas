@@ -37,6 +37,11 @@ def notes():
         return render_template('./notes.html',note=array)
 
 
+@app.route("/registracija",methods=["GET","POST"])
+def registracija():
+    return render_template('./registracija.html')
+        
+
 def createDB():
 
     global connection
