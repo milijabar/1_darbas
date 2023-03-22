@@ -39,6 +39,9 @@ def notes():
 
 @app.route("/registracija",methods=["GET","POST"])
 def registracija():
+    if(request.method == "POST"):
+        vardas = request.form.get("vardas")
+        slapt = request.form.get("slaptazodis")
     return render_template('./registracija.html')
         
 
@@ -58,8 +61,16 @@ def createDB():
         Text TEXT,
         FOREIGN KEY (SheetId) REFERENCES Sheets(Id)
     )"""
+
+    createVartotTableString = """CREATE TABLE IF NOT EXISTS Vartotojai (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Vardas TEXT NOT NULL,
+        Slaptazodis TEXT NOT NULL
+    )"""
+
     cursor.execute(createTableString)
     cursor.execute(createNotesTableString)
+    cursor.execute(createVartotTableString)
 
 def insert_into_db(note):
     global connection
