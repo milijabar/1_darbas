@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import sqlite3
 connection=sqlite3.connect("./NotesDatabase.db")
 
@@ -43,6 +43,7 @@ def registracija():
         vardas = request.form.get("vardas")
         slapt = request.form.get("slaptazodis")
         insert_user(vardas,slapt)
+        return redirect('/notes')
     return render_template('./registracija.html')
         
 
