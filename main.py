@@ -42,6 +42,7 @@ def registracija():
     if(request.method == "POST"):
         vardas = request.form.get("vardas")
         slapt = request.form.get("slaptazodis")
+        insert_user(vardas,slapt)
     return render_template('./registracija.html')
         
 
@@ -80,6 +81,16 @@ def insert_into_db(note):
     """
     cur=connection.cursor()
     cur.execute(queryString,(note,))
+    connection.commit()
+
+def insert_user(vardas,slapt):
+    global connection
+    connection=sqlite3.connect("./NotesDatabase.db")
+    queryString="""
+        INSERT INTO Vartotojai (Vardas, Slaptazodis) VALUES (?,?) 
+    """
+    cur=connection.cursor()
+    cur.execute(queryString,(vardas,slapt, ))
     connection.commit()
 
 def select_from_db():
